@@ -40,7 +40,7 @@ function Login() {
             />
           </div>
           <p className="text-center">
-            Don't have an account?
+            Don&apos;t have an account?
             <span
               className="text-blue-500 cursor-pointer pl-1"
               onClick={handleSignup}
