@@ -19,10 +19,10 @@ app.use("/auth", authRouter);
     console.log("🚀 Postgres connected!!");
   };
 
-  const port = parseInt(process.env.PORT as string, 10) || 5432;
+  const port = parseInt(process.env.DATABASE_PORT as string, 10);
 
   try {
-    await initPostgres(); // <--- Database connection initialized
+    await initPostgres();
     app.listen(port, () => {
       console.log(`🚀 Server running on the port: ${port}`);
     });
