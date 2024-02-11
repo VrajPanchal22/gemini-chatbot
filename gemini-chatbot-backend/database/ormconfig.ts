@@ -10,7 +10,7 @@ const dataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
-  entities: [".vercel/output/functions/index.ts.func/entities/*.js"],
+  entities: ["entities/*{.ts, .js}"],
   synchronize: true,
   logging: true,
   migrations: ["migrations/*{.ts, .js}"],
