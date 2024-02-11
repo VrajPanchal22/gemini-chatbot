@@ -4,7 +4,10 @@ export const signUp = async (req, res) => {
   try {
     return await signUpService(req.body, res);
   } catch (error) {
-    throw error;
+    return await res.status(500).json({
+      status: false,
+      error,
+    });
   }
 };
 
@@ -12,6 +15,9 @@ export const login = async (req, res) => {
   try {
     return await loginService(req.body, res);
   } catch (error) {
-    throw error;
+    return await res.status(500).json({
+      status: false,
+      error,
+    });
   }
 };
