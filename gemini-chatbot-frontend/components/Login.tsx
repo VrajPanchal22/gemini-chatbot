@@ -1,4 +1,5 @@
-// Import necessary modules
+"use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LogInDto } from "@/api-interface/logInRequestDto";
@@ -17,8 +18,7 @@ function Login() {
     onSuccess: ({ data }) => {
       router.push("/chat");
     },
-    onError: ({ data }) => {
-    },
+    onError: ({ data }) => {},
   });
 
   const handleLogin = () => {
