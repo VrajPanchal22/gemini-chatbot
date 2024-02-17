@@ -1,4 +1,4 @@
-import { signUpService } from "@/services/auth.service";
+import { logInService } from "@/services/auth.service";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -6,6 +6,6 @@ export async function POST(
   res: Response
 ): Promise<void | Response> {
   const dto = await req.json();
-  const data = await signUpService(dto);
+  const data = await logInService(dto);
   return NextResponse.json(data);
 }

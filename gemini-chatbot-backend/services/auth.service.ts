@@ -62,14 +62,10 @@ export const loginService = async (req, res) => {
       email: userDetails.email,
     });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      signed: true,
-    });
-
     return await res.status(200).json({
       status: true,
       msg: "Login Successfully",
+      token: token,
     });
   }
 };

@@ -1,15 +1,23 @@
 "use client";
 
 import React from "react";
-
-const handleChat = () => {};
+import jwt from "jsonwebtoken";
+import Cookies from "universal-cookie";
 
 function Chat() {
+  const cookies = new Cookies();
+  const token = cookies.get("token");
+
+  const data = jwt.decode(token);
+
+  const handleChat = () => {};
+
   return (
     <div>
       <style jsx global>{`
         body {
-          background-color: #2b2e35; /* Dark background */
+          --tw-bg-opacity: 1;
+          background-color: rgb(17 24 39 / var(--tw-bg-opacity));
           color: #ffffff; /* Light text color */
         }
         .chat-container {
@@ -22,7 +30,8 @@ function Chat() {
           max-width: 70%;
         }
         .usermsg {
-          background-color: #40444b; /* Darker background for user messages */
+          --tw-bg-opacity: 1;
+          background-color: rgb(31 41 55 / var(--tw-bg-opacity));
           border-radius: 1rem;
           padding: 1.5rem;
           box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
@@ -33,7 +42,8 @@ function Chat() {
           font-size: 0.875rem;
         }
         .bot-response {
-          background-color: #40444b; /* Darker background for bot responses */
+          --tw-bg-opacity: 1;
+          background-color: rgb(31 41 55 / var(--tw-bg-opacity));
           border-radius: 1rem;
           padding: 1.5rem;
           box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
@@ -52,11 +62,10 @@ function Chat() {
           box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
         }
         .input-field input {
-          background-color: #40444b; /* Darker background for input field */
-          border: none;
+          --tw-bg-opacity: 1;
+          background-color: rgb(31 41 55 / var(--tw-bg-opacity));
           outline: none;
-          color: #ffffff; /* Light text color for input field */
-          font-size: 0.875rem;
+          color: #ffffff;
           width: calc(100% - 3rem);
           margin-right: 1rem;
           border-radius: 9999px;
@@ -70,11 +79,19 @@ function Chat() {
           color: #ffffff; /* Light text color for send button */
           font-size: 0.875rem;
           transition: background-color 0.3s ease;
+          font-weight: bold;
         }
         .input-field button:hover {
           background-color: #357ae8; /* Darker blue on hover */
         }
       `}</style>
+      {data ? (
+        <h1 className="text-center text-2xl my-5">
+          Welcome, {data?.firstName}
+        </h1>
+      ) : (
+        ""
+      )}
       <div className="container mx-auto py-8">
         <div className="max-w-2xl mx-auto">
           <div className="chat-container">
@@ -119,11 +136,11 @@ function Chat() {
         </div>
         {/* Input field */}
         <div className="input-field">
-          <div className="flex items-center justify-between max-w-2xl mx-auto">
+          <div className="flex items-center justify-between max-w-2xl mx-auto ">
             <input
               type="text"
               placeholder="Type your message..."
-              className="rounded-full py-2 px-4"
+              className="rounded-full py-2 px-4 border focus:outline-none border-white"
             />
             <button className="py-2 px-4" onClick={handleChat}>
               Send

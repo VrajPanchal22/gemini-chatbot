@@ -1,8 +1,17 @@
+"use client";
+
 import Chat from "@/components/Chat";
 import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-function LoginPage() {
-  return <Chat />;
+const queryClient = new QueryClient();
+
+function ChatPage() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Chat />
+    </QueryClientProvider>
+  );
 }
 
-export default LoginPage;
+export default ChatPage;

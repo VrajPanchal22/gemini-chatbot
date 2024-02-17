@@ -1,10 +1,8 @@
-"use client";
-
+// Import necessary modules
 import { useMutation } from "react-query";
 import axios from "axios";
 import { useState } from "react";
 import { SignUpDto } from "@/api-interface/signUpRequestDto";
-import { UserInfoDto } from "@/api-interface/userInfoDto";
 import { useRouter } from "next/navigation";
 
 const Signup = () => {
@@ -14,7 +12,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { mutate, isLoading } = useMutation<UserInfoDto, unknown, SignUpDto>({
+  const { mutate, isLoading } = useMutation<any, unknown, SignUpDto>({
     mutationFn: async (signUpDto: SignUpDto) => {
       return await axios.post("api/auth/sign-up", signUpDto);
     },
@@ -35,8 +33,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center min-h-screen justify-center bg-neutral-100 ">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md ">
+    <div className="flex items-center min-h-screen justify-center bg-gray-900 text-white">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <form className="space-y-6">
           <div>

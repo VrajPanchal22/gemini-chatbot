@@ -1,22 +1,41 @@
-"use client";
-
-import React, { useState } from "react";
+// Import necessary modules
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { LogInDto } from "@/api-interface/logInRequestDto";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {};
+  const { mutate, isLoading } = useMutation<any, any, LogInDto>({
+    mutationFn: async (logInDto: LogInDto) => {
+      return await axios.post("api/auth/log-in", logInDto);
+    },
+    onSuccess: ({ data }) => {
+      router.push("/chat");
+    },
+    onError: ({ data }) => {
+    },
+  });
+
+  const handleLogin = () => {
+    const logInDto: LogInDto = {
+      email: email,
+      password: password,
+    };
+    mutate(logInDto);
+  };
 
   const handleSignup = () => {
     router.push("/signup");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-100 ">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md ">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form className="space-y-6">
           <div className="mb-4">
@@ -52,8 +71,9 @@ function Login() {
             type="button"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             onClick={handleLogin}
+            disabled={isLoading}
           >
-            Login
+            {isLoading ? "Loging In..." : "Log In"}
           </button>
         </form>
       </div>
