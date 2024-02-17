@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/auth.routes";
 import dataSource from "./database/ormconfig";
 import cookieParser from "cookie-parser";
+import messageRouter from "./routes/message.routes";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use("/auth", authRouter);
+app.use("/message", messageRouter);
 
 (async () => {
   const initPostgres = async () => {

@@ -98,36 +98,15 @@ function Chat() {
             <div className="flex flex-col space-y-4">
               {/* Chat messages */}
               {/* Bot response */}
-              <div className="flex justify-start">
-                <div className="bot-response">
+              <div className="flex justify-end">
+                <div className="usermsg">
                   <p>Hi there! How can I assist you today?</p>
                 </div>
               </div>
               {/* User input */}
-              <div className="flex justify-end">
-                <div className="usermsg">
+              <div className="flex justify-start">
+                <div className="bot-response">
                   <p>Can you help me with my query?</p>
-                </div>
-              </div>
-              {/* Bot response */}
-              <div className="flex justify-start">
-                <div className="bot-response">
-                  <p>Sure! What do you need assistance with?</p>
-                </div>
-              </div>
-              {/* User input */}
-              <div className="flex justify-end">
-                <div className="usermsg">
-                  <p>I&apos;m having trouble logging in.</p>
-                </div>
-              </div>
-              {/* Bot response */}
-              <div className="flex justify-start">
-                <div className="bot-response">
-                  <p>
-                    I can help you with that. Please provide me with your
-                    username.
-                  </p>
                 </div>
               </div>
               {/* End of chat */}

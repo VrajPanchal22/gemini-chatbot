@@ -14,7 +14,6 @@ export const signUpService = async (req, res) => {
 
   if (userExists) {
     return await res.status(200).json({
-      status: true,
       msg: "Email Already Exists. Please try other Email.",
     });
   }
@@ -30,7 +29,6 @@ export const signUpService = async (req, res) => {
   const response = await userRepository.save(user);
   if (response) {
     return await res.status(200).json({
-      status: true,
       msg: "SignUp Successfully",
     });
   }
@@ -45,7 +43,6 @@ export const loginService = async (req, res) => {
 
   if (!userDetails) {
     return await res.status(404).json({
-      status: false,
       msg: "Wrong Email/Password",
     });
   }
@@ -63,7 +60,6 @@ export const loginService = async (req, res) => {
     });
 
     return await res.status(200).json({
-      status: true,
       msg: "Login Successfully",
       token: token,
     });
