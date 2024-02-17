@@ -1,16 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { useState } from "react";
+import { SignUpDto } from "@/api-interface/signUpRequestDto";
+import { UserInfoDto } from "@/api-interface/userInfoDto";
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
+  const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { mutate, isLoading } = useMutation<UserInfoDto, unknown, SignUpDto>({
+    mutationFn: async (signUpDto: SignUpDto) => {
+      return await axios.post("api/auth/sign-up", signUpDto);
+    },
+    onSuccess: (data) => {
+      router.push("/login");
+    },
+  });
+
   const handleSignup = () => {
-    // Add your signup logic here
+    const signUpDto: SignUpDto = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    };
+
+    mutate(signUpDto);
   };
 
   return (
@@ -63,8 +84,9 @@ const Signup = () => {
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
               onClick={handleSignup}
+              disabled={isLoading}
             >
-              Sign Up
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
           </div>
         </form>

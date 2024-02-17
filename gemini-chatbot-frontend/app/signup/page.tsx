@@ -1,8 +1,17 @@
+"use client";
+
 import Signup from "@/components/Signup";
 import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-function LoginPage() {
-  return <Signup />;
+const queryClient = new QueryClient();
+
+function SignUpPage() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Signup />
+    </QueryClientProvider>
+  );
 }
 
-export default LoginPage;
+export default SignUpPage;
