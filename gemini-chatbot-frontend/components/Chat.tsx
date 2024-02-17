@@ -2,8 +2,7 @@
 
 import React from "react";
 
-const handleChat = () => {
-};
+const handleChat = () => {};
 
 function Chat() {
   return (
@@ -102,7 +101,7 @@ function Chat() {
               {/* User input */}
               <div className="flex justify-end">
                 <div className="usermsg">
-                  <p>I'm having trouble logging in.</p>
+                  <p>I&apos;m having trouble logging in.</p>
                 </div>
               </div>
               {/* Bot response */}
