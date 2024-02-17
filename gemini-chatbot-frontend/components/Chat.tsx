@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import jwt from "jsonwebtoken";
-import Cookies from "universal-cookie";
+// import jwt from "jsonwebtoken";
+// import Cookies from "universal-cookie";
 
 function Chat() {
-  const cookies = new Cookies();
-  const token = cookies.get("token");
+  // const cookies = new Cookies();
+  // const token = cookies.get("token");
 
-  const data = jwt.decode(token);
+  // const data = jwt.verify(token, `${process.env.JWT_SECRET}`);
 
   const handleChat = () => {};
 
@@ -85,13 +85,13 @@ function Chat() {
           background-color: #357ae8; /* Darker blue on hover */
         }
       `}</style>
-      {data ? (
+      {/* {data ? (
         <h1 className="text-center text-2xl my-5">
           Welcome, {data?.firstName}
         </h1>
       ) : (
         ""
-      )}
+      )} */}
       <div className="container mx-auto py-8">
         <div className="max-w-2xl mx-auto">
           <div className="chat-container">
