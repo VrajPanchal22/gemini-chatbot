@@ -17,27 +17,26 @@ const model = genAI.getGenerativeModel({
 });
 
 export const getAndSaveBotResponseService = async (req, res) => {
-  const { question } = req;
+  const { content } = req;
 
-  const prompt = question;
+  const prompt = content;
   const result = await model.generateContent(prompt);
 
   if (result) {
     const response = result.response.text();
 
-    const botResponse: Message = {
-      messageId: "075a5f6c-dbbc-48a8-9324-88af405128af",
-      conversationId: "075a5f6c-dbbc-48a8-9324-88af405128af",
-      userId: "075a5f6c-dbbc-48a8-9324-88af405128af",
-      interactionId: "075a5f6c-dbbc-48a8-9324-88af405128af",
+    let botResponse: Message = {
+      conversationId: req.conversationId,
+      userId: req.userId,
+      interactionId: req.interactionId,
       content: response,
       isUser: false,
     };
 
-    await messageRepository.save(botResponse);
+    botResponse = await messageRepository.save(botResponse);
 
     return await res.status(200).json({
-      msg: response,
+      msg: botResponse,
     });
   }
 };
@@ -59,8 +58,10 @@ export const getMessageService = async (req, res) => {
   const { userId } = req;
   const response = await messageRepository.find({
     where: { userId: userId },
+    order: { createdAt: "ASC" },
   });
+  const chatHistory = response;
   return await res.status(200).json({
-    msg: response,
+    msg: chatHistory,
   });
 };

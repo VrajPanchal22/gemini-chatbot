@@ -9,7 +9,7 @@ import {
 @Entity({ name: "messages" })
 export class Message {
   @PrimaryGeneratedColumn("uuid")
-  messageId: string;
+  messageId?: string;
 
   @Column("uuid")
   conversationId: string;
