@@ -57,6 +57,7 @@ export const loginService = async (req, res) => {
       firstName: userDetails.firstName,
       lastName: userDetails.lastName,
       email: userDetails.email,
+      userId: userDetails.id,
     });
 
     return await res.status(200).json({
