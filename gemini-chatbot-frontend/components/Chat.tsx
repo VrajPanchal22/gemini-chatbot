@@ -80,6 +80,7 @@ function Chat({ userData }: ChatProps) {
 
   return (
     <div className="bg-gray-900 text-white">
+      <h1 className="text-center py-4 text-xl">Hello, {userData.firstName}</h1>
       <div className="container mx-auto py-8">
         <div className="lg:max-w-2xl md:max-w-xl sm:max-w-lg mx-auto mt-8 max-w-sm">
           <div className="h-screen mt-[-1rem] mb-1rem overflow-y-auto ">
