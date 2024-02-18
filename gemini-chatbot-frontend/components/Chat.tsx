@@ -12,6 +12,7 @@ interface Message {
   interactionId: string;
   content: string;
   isUser: boolean;
+  messageId?: string;
 }
 
 interface ChatProps {
@@ -90,6 +91,7 @@ function Chat({ userData }: ChatProps) {
                     className={`${
                       message.isUser ? "flex justify-end" : "flex justify-start"
                     }`}
+                    key={message.messageId}
                   >
                     <div className="bg-gray-800 bg-opacity-75 rounded-xl p-6  shadow-lg shadow-gray-700/5">
                       <p className="text-white text-sm">{message.content}</p>
