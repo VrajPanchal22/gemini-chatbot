@@ -73,7 +73,7 @@ function Chat({ userData }: ChatProps) {
     }
   }, [chatHistory]);
 
-  const handleChat = () => {
+  const handleChat = async () => {
     if (newMessage.trim()) {
       const newChatData = {
         conversationId,
@@ -84,29 +84,41 @@ function Chat({ userData }: ChatProps) {
       };
       setChatHistory((prevHistory) => [...prevHistory, newChatData]); // Append new message
       setNewMessage("");
-      saveUserMessage(newChatData);
+      try {
+        await saveUserMessage(newChatData);
+      } catch (error) {
+        // Handle error
+        console.log("GETTING ERROR ON saveUserMessage:", error);
+      }
     }
   };
 
-  // Function to parse bot response content and display appropriately
   const parseBotResponse = (content: string) => {
-    const lines = content.split("\n");
-    const formattedContent = lines.map((line, index) => {
-      if (line.startsWith("```")) {
-        const language = line.replace(/```/g, "").trim();
-        return (
-          <SyntaxHighlighter
-            key={index}
-            language={language}
-            style={vscDarkPlus}
-          >
-            {lines.slice(index + 1).join("\n")}
-          </SyntaxHighlighter>
-        );
-      } else {
-        return <p key={index}>{line}</p>;
-      }
-    });
+    const blocks = content.split(/```/); // Split content by code blocks
+    const formattedContent = blocks
+      .map((block, index) => {
+        if (index % 2 === 0) {
+          // Text content
+          return block
+            .split("\n")
+            .map((line, lineIndex) => <p key={lineIndex}>{line}</p>);
+        } else {
+          // Code block
+          const language = block.split("\n")[0]; // Extract language from first line
+          const code = block.substring(language.length + 1).trim(); // Extract code content
+          return (
+            <SyntaxHighlighter
+              key={index}
+              language={language.trim()}
+              style={vscDarkPlus}
+            >
+              {code}
+            </SyntaxHighlighter>
+          );
+        }
+      })
+      .flat(); // Flatten the array of elements
+
     return formattedContent;
   };
 
