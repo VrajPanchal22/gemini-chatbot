@@ -26,7 +26,7 @@ export const saveMessage = async (req, res) => {
 
 export const getMessage = async (req, res) => {
   try {
-    return await getMessageService(req.body, res);
+    return await getMessageService(req.params, res);
   } catch (error) {
     return await res.status(500).json({
       error,
