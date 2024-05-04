@@ -3,12 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
-  {
-    userId,
-  }: {
-    userId: string;
-  }
+  context: any
 ): Promise<void | Response> {
-  const data = await getChatHistoryService(userId);
+  const data = await getChatHistoryService(context.params.userId);
   return NextResponse.json(data);
 }

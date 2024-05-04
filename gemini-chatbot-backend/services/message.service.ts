@@ -55,9 +55,8 @@ export const saveMessageService = async (req, res) => {
 };
 
 export const getMessageService = async (req, res) => {
-  const { userId } = req;
   const response = await messageRepository.find({
-    where: { userId: userId },
+    where: { userId: req.userId },
     order: { createdAt: "ASC" },
   });
   const chatHistory = response;

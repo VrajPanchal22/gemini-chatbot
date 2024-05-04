@@ -1,14 +1,12 @@
 import axios from "axios";
 
 export const getChatHistoryService = async (userId: string) => {
-  const url = `${process.env.API_BASE_URL}/message/get`;
-  const { data } = await axios(url, {
-    method: "POST",
+  const url = `${process.env.API_BASE_URL}/message/get/${userId}`;
+  const { data } = await axios.get(url, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    data: userId,
   });
 
   return data;

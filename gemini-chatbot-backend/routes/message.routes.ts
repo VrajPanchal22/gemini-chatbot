@@ -9,6 +9,6 @@ const messageRouter = express.Router();
 
 messageRouter.post("/bot/response", getAndSaveBotResponse);
 messageRouter.post("/save", saveMessage);
-messageRouter.post("/get", getMessage);
+messageRouter.get("/get/:userId", getMessage);
 
 export default messageRouter;
