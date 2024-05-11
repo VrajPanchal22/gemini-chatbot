@@ -87,7 +87,6 @@ function Chat({ userData }: ChatProps) {
       try {
         await saveUserMessage(newChatData);
       } catch (error) {
-        // Handle error
         console.log("GETTING ERROR ON saveUserMessage:", error);
       }
     }
@@ -123,71 +122,75 @@ function Chat({ userData }: ChatProps) {
   };
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
-      <h1 className="text-center py-2 text-xl fixed top-0 left-0 right-0 z-10 bg-gray-900">
-        Hello, {userData.firstName}
-      </h1>
-      <div className="container mx-auto py-8">
-        <div className="lg:max-w-4xl md:max-w-3xl sm:max-w-xl mx-auto mt-8">
-          <div
-            className="overflow-y-auto"
-            style={{ maxHeight: "calc(100vh - 150px)" }}
-            ref={chatContainerRef}
-          >
-            <div className="flex flex-col space-y-4 ">
-              {/* Chat messages */}
-              {chatHistory &&
-                chatHistory.map((message: Message, index: number) => (
-                  <div
-                    key={index}
-                    className={`flex flex-col items-${
-                      message.isUser ? "start" : "end"
-                    }`}
-                  >
-                    <span className="p-2">
-                      {message.isUser ? userData.firstName : "Gemini AI"}
-                    </span>
+    <>
+      <div className="bg-gray-900 text-white min-h-screen">
+        <h1 className="text-center py-2 text-xl fixed top-0 left-0 right-0 z-10 bg-gray-900">
+          Gemini AI ChatBot
+        </h1>
+        <div className="container mx-auto py-8">
+          <div className="lg:max-w-4xl md:max-w-3xl sm:max-w-xl mx-auto mt-8">
+            <div
+              className="overflow-y-auto"
+              style={{ maxHeight: "calc(100vh - 150px)" }}
+              ref={chatContainerRef}
+            >
+              <div className="flex flex-col space-y-4 ">
+                {/* Chat messages */}
+                {chatHistory &&
+                  chatHistory.map((message: Message, index: number) => (
                     <div
-                      className={`rounded-xl p-6 shadow-lg shadow-gray-700/5 bg-gray-800`}
+                      key={index}
+                      className={`flex flex-col items-${
+                        message.isUser ? "start" : "end"
+                      }`}
                     >
-                      {/* Display bot response content */}
-                      {message.isUser ? (
-                        <p className="text-white text-sm">{message.content}</p>
-                      ) : (
-                        <div className="rounded-xl shadow-lg shadow-gray-700/5">
-                          {parseBotResponse(message.content)}
-                        </div>
-                      )}
+                      <span className="pl-5">
+                        {message.isUser ? userData.firstName : "Gemini AI"}
+                      </span>
+                      <div
+                        className={`m-3 rounded-xl p-6 shadow-lg shadow-gray-700/5 bg-gray-800`}
+                      >
+                        {/* Display bot response content */}
+                        {message.isUser ? (
+                          <p className="text-white text-sm">
+                            {message.content}
+                          </p>
+                        ) : (
+                          <div className="rounded-xl shadow-lg shadow-gray-700/5">
+                            {parseBotResponse(message.content)}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </div>
           </div>
-        </div>
-        {/* Input field */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 shadow-md shadow-gray-700/10">
-          <div className="max-w-4xl mx-auto ">
-            <div className="flex items-center">
-              <input
-                type="text"
-                value={newMessage}
-                placeholder="Type your message..."
-                onChange={(e) => setNewMessage(e.target.value)}
-                className="bg-gray-800 bg-opacity-75 outline-none text-white flex-grow p-2 ml-2 rounded-full py-2 px-4 border focus:outline-none border-white mr-3"
-              />
-              <button
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full py-2 px-4 transition ease-in-out duration-150 outline-none"
-                onClick={handleChat}
-              >
-                {saveUserMessageLoading || botResponseLoading
-                  ? "Loading"
-                  : "Send"}
-              </button>
+          {/* Input field */}
+          <div className="fixed bottom-0 left-0 right-0 p-4 shadow-md shadow-gray-700/10">
+            <div className="max-w-4xl mx-auto ">
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  value={newMessage}
+                  placeholder="Type your message..."
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  className="bg-gray-800 bg-opacity-75 outline-none text-white flex-grow p-2 ml-2 rounded-full py-2 px-4 border focus:outline-none border-white mr-3"
+                />
+                <button
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full py-2 px-4 transition ease-in-out duration-150 outline-none"
+                  onClick={handleChat}
+                >
+                  {saveUserMessageLoading || botResponseLoading
+                    ? "Loading"
+                    : "Send"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
