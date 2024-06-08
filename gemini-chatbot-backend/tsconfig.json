@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES6",
     "module": "commonjs",
-    "outDir": "dist",
+    "outDir": "./dist",
     "rootDir": ".",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  }
+  },
+  "include": ["**/*.ts"], // Adjusted to include all TypeScript files in the root directory
+  "exclude": ["node_modules"]
 }
