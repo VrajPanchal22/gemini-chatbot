@@ -68,8 +68,10 @@ function Chat({ userData }: ChatProps) {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [chatHistory]);
 
@@ -94,29 +96,31 @@ function Chat({ userData }: ChatProps) {
 
   const parseBotResponse = (content: string) => {
     const blocks = content.split(/```/); // Split content by code blocks
-    const formattedContent = blocks
-      .map((block, index) => {
-        if (index % 2 === 0) {
-          // Text content
-          return block
-            .split("\n")
-            .map((line, lineIndex) => <p key={lineIndex}>{line}</p>);
-        } else {
-          // Code block
-          const language = block.split("\n")[0]; // Extract language from first line
-          const code = block.substring(language.length + 1).trim(); // Extract code content
-          return (
-            <SyntaxHighlighter
-              key={index}
-              language={language.trim()}
-              style={vscDarkPlus}
-            >
-              {code}
-            </SyntaxHighlighter>
+    const formattedContent = [];
+
+    blocks.forEach((block, index) => {
+      if (index % 2 === 0) {
+        // Text content
+        block.split("\n").forEach((line, lineIndex) => {
+          formattedContent.push(
+            <p key={`text-${index}-${lineIndex}`}>{line}</p>
           );
-        }
-      })
-      .flat(); // Flatten the array of elements
+        });
+      } else {
+        // Code block
+        const [language, ...codeLines] = block.split("\n");
+        const code = codeLines.join("\n").trim();
+        formattedContent.push(
+          <SyntaxHighlighter
+            key={`code-${index}`}
+            language={language.trim()}
+            style={vscDarkPlus}
+          >
+            {code}
+          </SyntaxHighlighter>
+        );
+      }
+    });
 
     return formattedContent;
   };
@@ -167,23 +171,45 @@ function Chat({ userData }: ChatProps) {
             </div>
           </div>
           {/* Input field */}
-          <div className="fixed bottom-0 left-0 right-0 p-4 shadow-md shadow-gray-700/10">
-            <div className="max-w-4xl mx-auto ">
-              <div className="flex items-center">
+          <div className="fixed bottom-0 left-0 right-0 p-4 shadow-md shadow-gray-700/10 bg-gray-900">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center bg-gray-800 rounded-full px-4 py-2">
                 <input
                   type="text"
                   value={newMessage}
                   placeholder="Type your message..."
                   onChange={(e) => setNewMessage(e.target.value)}
-                  className="bg-gray-800 bg-opacity-75 outline-none text-white flex-grow p-2 ml-2 rounded-full py-2 px-4 border focus:outline-none border-white mr-3"
+                  className="bg-transparent outline-none text-white flex-grow p-2 rounded-full border-none"
+                  style={{ resize: "none" }}
                 />
                 <button
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full py-2 px-4 transition ease-in-out duration-150 outline-none"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full py-2 px-4 transition ease-in-out duration-150 outline-none ml-2"
                   onClick={handleChat}
                 >
-                  {saveUserMessageLoading || botResponseLoading
-                    ? "Loading"
-                    : "Send"}
+                  {saveUserMessageLoading || botResponseLoading ? (
+                    <svg
+                      className="animate-spin h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v8H4z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    "Send"
+                  )}
                 </button>
               </div>
             </div>
