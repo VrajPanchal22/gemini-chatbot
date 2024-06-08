@@ -130,7 +130,7 @@ function Chat({ userData }: ChatProps) {
         <div className="container mx-auto py-8">
           <div className="lg:max-w-4xl md:max-w-3xl sm:max-w-xl mx-auto mt-8">
             <div
-              className="overflow-y-auto"
+              className="overflow-y-auto overflow-x-hidden"
               style={{ maxHeight: "calc(100vh - 150px)" }}
               ref={chatContainerRef}
             >
