@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node index.ts",
+    "start": "ts-node index.ts",
+    "dev": "nodemon --exec ts-node index.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:create": "npm run typeorm migration:create",
     "migration:run": "npm run typeorm migration:run -d ./database/ormconfig.ts",
