@@ -96,7 +96,7 @@ function Chat({ userData }: ChatProps) {
 
   const parseBotResponse = (content: string) => {
     const blocks = content.split(/```/); // Split content by code blocks
-    const formattedContent = [];
+    const formattedContent: React.JSX.Element[] = [];
 
     blocks.forEach((block, index) => {
       if (index % 2 === 0) {
