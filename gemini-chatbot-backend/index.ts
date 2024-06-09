@@ -12,6 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 
+app.get("/", (req, res) => {
+  res.send("Server is running successfully!!!");
+});
 app.use("/auth", authRouter);
 app.use("/message", messageRouter);
 
