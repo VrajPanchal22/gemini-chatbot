@@ -35,3 +35,5 @@ app.use("/message", messageRouter);
     console.log(`❌  Server error: ${error}`);
   }
 })();
+
+export default app;

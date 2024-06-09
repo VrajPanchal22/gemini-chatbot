@@ -8,6 +8,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["**/*.ts"], // Adjusted to include all TypeScript files in the root directory
+  "include": ["./api/*.ts", "**/*.ts"], // Adjusted to include all TypeScript files in the root directory
   "exclude": ["node_modules"]
 }
