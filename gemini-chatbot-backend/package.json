@@ -11,7 +11,7 @@
     "migration:create": "npm run typeorm migration:create",
     "migration:run": "npm run typeorm migration:run -d ./database/ormconfig.ts",
     "migration:revert": "npm run typeorm migration:revert",
-    "vercel-build": "echo hello"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
