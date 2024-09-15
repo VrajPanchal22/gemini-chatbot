@@ -2,7 +2,7 @@
   "name": "gemini-chatbot-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/api/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/api/index.js",
@@ -10,7 +10,7 @@
     "build": "tsc",
     "postbuild": "npm run migration:run",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migration:run": "npm run typeorm migration:run -d /database/ormconfig.ts",
+    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./dist/database/ormconfig.js",
     "migration:create": "npm run typeorm migration:create",
     "migration:revert": "npm run typeorm migration:revert"
   },
