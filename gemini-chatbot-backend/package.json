@@ -9,7 +9,7 @@
     "dev": "nodemon --exec ts-node index.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:create": "npm run typeorm migration:create",
-    "migration:run": "npm run typeorm migration:run -d ./database/ormconfig.ts",
+    "migration:run": "npm run typeorm migration:run -d ./dist/database/ormconfig.js",
     "migration:revert": "npm run typeorm migration:revert",
     "build": "tsc && npm run migration:run"
   },
