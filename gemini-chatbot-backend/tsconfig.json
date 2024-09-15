@@ -3,11 +3,11 @@
     "target": "ES6",
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./", // Root directory is the base of your project
+    "rootDir": ".",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["api/**/*.ts", "controller/**/*.ts", "database/**/*.ts", "entities/**/*.ts", "helpers/**/*.ts", "migrations/**/*.ts", "public/**/*.ts", "routes/**/*.ts", "services/**/*.ts"],
+  "include": ["./api/*.ts", "**/*.ts"],
   "exclude": ["node_modules"]
 }
