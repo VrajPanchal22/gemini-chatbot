@@ -10,10 +10,10 @@ const dataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
-  entities: ["entities/*{.ts, .js}"],
-  synchronize: true,
+  entities: ["dist/entities/*{.ts,.js}"],
+  migrations: ["dist/migrations/*{.ts,.js}"],
+  synchronize: false,
   logging: true,
-  migrations: ["migrations/*{.ts, .js}"],
   migrationsRun: true,
   ssl: true,
   extra: {
