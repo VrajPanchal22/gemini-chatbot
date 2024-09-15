@@ -12,7 +12,7 @@ const dataSource = new DataSource({
   database: process.env.POSTGRES_DATABASE,
   entities: ["dist/entities/*.js}"],
   migrations: ["dist/migrations/*.js"],
-  synchronize: false,
+  synchronize: true,
   logging: true,
   migrationsRun: true,
   ssl: true,
