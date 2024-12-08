@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateMessagesTable1708169880401 implements MigrationInterface {
+export class CreateMessagesTable1733659229249 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-    CREATE TABLE "message" (
+      CREATE TABLE "message" (
         "messageId" uuid NOT NULL,
         "conversationId" uuid NOT NULL,
         "userId" uuid NOT NULL,
@@ -12,13 +12,15 @@ export class CreateMessagesTable1708169880401 implements MigrationInterface {
         "isUser" boolean NOT NULL,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP,
-        FOREIGN KEY ("userId") REFERENCES users("id") ON DELETE CASCADE)
+        CONSTRAINT "FK_userId" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE,
+        CONSTRAINT "PK_messageId" PRIMARY KEY ("messageId")
+      )
     `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      DROP TABLE messages;
+      DROP TABLE "message";
     `);
   }
 }
