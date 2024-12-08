@@ -8,7 +8,6 @@
     "start": "node dist/api/index.js",
     "dev": "nodemon --exec ts-node api/index.ts",
     "build": "tsc",
-    "postbuild": "npm run migration:run",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./dist/database/ormconfig.js",
     "migration:create": "npm run typeorm migration:create",
