@@ -5,19 +5,21 @@ dotenv.config();
 
 const dataSource = new DataSource({
   type: "postgres",
-  host: process.env.POSTGRES_HOST,
-  port: Number(process.env.POSTGRES_PORT),
+  host: process.env.POSTGRES_HOST, // Ensure this matches Railway's DB_HOST
+  port: Number(process.env.POSTGRES_PORT) || 5432, // Default PostgreSQL port
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
-  entities: ["dist/entities/*.js}"],
+  entities: ["dist/entities/*.js"], // Fixed typo
   migrations: ["dist/migrations/*.js"],
-  synchronize: true,
+  synchronize: false, // Disable for production
   logging: true,
-  migrationsRun: true,
-  ssl: true,
+  migrationsRun: true, // Automatically run migrations
+  ssl: true, // Enable SSL
   extra: {
-    sslmode: "require",
+    ssl: {
+      rejectUnauthorized: false, // Accept self-signed certs
+    },
   },
 });
 
